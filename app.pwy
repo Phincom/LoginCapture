@@ -1,0 +1,104 @@
+import cv2
+import os
+import time
+from datetime import datetime
+import getpass
+
+# =========================
+# SETTINGS
+# =========================
+
+# Change these folder names to where you want files saved
+SAVE_FOLDER = os.path.join(
+    os.environ["USERPROFILE"],
+    "Save File Location",
+    "Folder Name"
+)
+
+os.makedirs(SAVE_FOLDER, exist_ok=True)
+
+# Log file name
+LOG_FILE = os.path.join(SAVE_FOLDER, "login_log.txt")
+
+USERNAME = getpass.getuser()
+
+print("=" * 45)
+print(" LOGIN LOGGER ACTIVE ")
+print("=" * 45)
+print("Waiting for login/unlock events...\n")
+
+
+# =========================
+# PHOTO FUNCTION
+# =========================
+
+def capture():
+    now = datetime.now()
+
+    timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
+    readable = now.strftime("%Y-%m-%d %H:%M:%S")
+
+    image_name = f"login_{timestamp}.jpg"
+    image_path = os.path.join(SAVE_FOLDER, image_name)
+
+    print(f"\n[+] Login detected")
+    print(f"[+] User: {USERNAME}")
+    print(f"[+] Time: {readable}")
+    print("[*] Taking photo...")
+
+    cap = cv2.VideoCapture(0)
+
+    time.sleep(1)
+
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+
+    for _ in range(3):
+        cap.read()
+
+    ret, frame = cap.read()
+
+    if ret:
+        cv2.imwrite(image_path, frame)
+
+        print(f"[+] Saved: {image_name}")
+
+        with open(LOG_FILE, "a", encoding="utf-8") as f:
+            f.write(
+                f"[{readable}] "
+                f"User: {USERNAME} | "
+                f"Photo: {image_name}\n"
+            )
+
+        print("[+] Log updated")
+
+    else:
+        print("[!] Camera capture failed")
+
+    cap.release()
+
+
+# =========================
+# STARTUP CAPTURE
+# =========================
+
+capture()
+
+
+# =========================
+# WATCH FOR WAKE/UNLOCK
+# =========================
+
+last_time = time.time()
+
+while True:
+    current_time = time.time()
+
+    if current_time - last_time > 30:
+        capture()
+
+    last_time = current_time
+
+    print("[*] Monitoring...", end="\r")
+
+    time.sleep(5)
