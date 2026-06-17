@@ -271,6 +271,9 @@ cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
 ---
 
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 ## Disclaimer
 
 Use this software only on systems you own or administer and where all affected users are aware of and consent to its operation. Ensure compliance with applicable privacy laws, workplace policies, and local regulations.
