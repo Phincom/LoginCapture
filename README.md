@@ -1,3 +1,4 @@
+
 # Login Camera Logger
 
 A simple Python application that captures a webcam image when started and saves a log entry with the date, time, and username.
@@ -276,10 +277,9 @@ Use this software only on systems you own or administer and where all affected u
 
 ---
 
-## License
 
-MIT License
-
----
 
 Made with Python ❤️
+Copyright (c) 2026 PHINCOM
+
+All rights reserved.
