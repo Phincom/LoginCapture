@@ -1,3 +1,6 @@
+# Login Camera Logger
+# Copyright (c) 2026 PHINCOM
+# All rights reserved.
 import cv2
 import os
 import time
