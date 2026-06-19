@@ -36,7 +36,7 @@ pip install opencv-python
 Clone the repository:
 
 ```bash
-git clone https://github.com/YourUsername/Login-Camera-Logger.git
+git clone https://github.com/Phincom/Login-Camera-Logger.git
 ```
 
 Open the project folder:
